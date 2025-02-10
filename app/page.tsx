@@ -93,7 +93,24 @@ const Page = () => {
             {formData.susunanPanitia.map((panitia, index) => (
               <div key={index} className="mb-4">
                 <input type="text" name="nama" placeholder="Nama" value={panitia.nama} onChange={(e) => handleSusunanPanitiaChange(index, e)} className="w-full p-2 rounded text-black mb-2" />
-                <input type="text" name="jabatan" placeholder="Jabatan" value={panitia.jabatan} onChange={(e) => handleSusunanPanitiaChange(index, e)} className="w-full p-2 rounded text-black mb-2" />
+                <select name="jabatan" value={panitia.jabatan} onChange={(e) => handleSusunanPanitiaChange(index, e)} className="w-full p-2 rounded text-black mb-2">
+                  <option value="">Pilih Jabatan</option>
+                  <option value="Ketua">Ketua</option>
+                  <option value="Wakil Ketua">Wakil Ketua</option>
+                  <option value="Sekretaris">Sekretaris</option>
+                  <option value="Bendahara">Bendahara</option>
+                  <option value="Perlengkapan">Perlengkapan</option>
+                  <option value="Logistik">Logistik</option>
+                  <option value="Keamanan">Keamanan</option>
+                  <option value="Teknis">Teknis</option>
+                  <option value="Acara">Acara</option>
+                  <option value="LO">LO</option>
+                  <option value="Humas">Humas</option>
+                  <option value="Dokumentasi">Dokumentasi</option>
+                  <option value="Multimedia">Multimedia</option>
+                  <option value="DDD">DDD</option>
+                  <option value="Steering Committee">Steering Committee</option>
+                </select>
                 <input type="text" name="nim" placeholder="NIM" value={panitia.nim} onChange={(e) => handleSusunanPanitiaChange(index, e)} className="w-full p-2 rounded text-black" />
               </div>
             ))}
