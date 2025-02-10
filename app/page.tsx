@@ -10,7 +10,7 @@ const Page = () => {
     sasaranPeserta: [],
     deskripsiKegiatan: '',
     rencanaAnggaran: '',
-    susunanPanitia: []
+    susunanPanitia: [{ nama: '', jabatan: '', nim: '' }]
   });
 
   const handleChange = (e) => {
@@ -29,12 +29,21 @@ const Page = () => {
     });
   };
 
-  const handleSusunanPanitiaChange = (e) => {
-    const { options } = e.target;
-    const selectedOptions = Array.from(options).filter(option => option.selected).map(option => option.value);
+  const handleSusunanPanitiaChange = (index, e) => {
+    const { name, value } = e.target;
+    const updatedSusunanPanitia = formData.susunanPanitia.map((item, i) => 
+      i === index ? { ...item, [name]: value } : item
+    );
     setFormData({
       ...formData,
-      susunanPanitia: selectedOptions
+      susunanPanitia: updatedSusunanPanitia
+    });
+  };
+
+  const addPanitia = () => {
+    setFormData({
+      ...formData,
+      susunanPanitia: [...formData.susunanPanitia, { nama: '', jabatan: '', nim: '' }]
     });
   };
 
@@ -81,12 +90,14 @@ const Page = () => {
           </div>
           <div>
             <label>Susunan Panitia</label>
-            <select name="susunanPanitia" multiple value={formData.susunanPanitia} onChange={handleSusunanPanitiaChange} className="w-full p-2 rounded text-black">
-              <option value="Ketua">Ketua</option>
-              <option value="Sekretaris">Sekretaris</option>
-              <option value="Bendahara">Bendahara</option>
-              <option value="Anggota">Anggota</option>
-            </select>
+            {formData.susunanPanitia.map((panitia, index) => (
+              <div key={index} className="mb-4">
+                <input type="text" name="nama" placeholder="Nama" value={panitia.nama} onChange={(e) => handleSusunanPanitiaChange(index, e)} className="w-full p-2 rounded text-black mb-2" />
+                <input type="text" name="jabatan" placeholder="Jabatan" value={panitia.jabatan} onChange={(e) => handleSusunanPanitiaChange(index, e)} className="w-full p-2 rounded text-black mb-2" />
+                <input type="text" name="nim" placeholder="NIM" value={panitia.nim} onChange={(e) => handleSusunanPanitiaChange(index, e)} className="w-full p-2 rounded text-black" />
+              </div>
+            ))}
+            <button type="button" onClick={addPanitia} className="mt-2 p-2 bg-blue-500 text-white rounded">Tambah Panitia</button>
           </div>
           <button type="submit" className="mt-4 p-2 bg-blue-500 text-white rounded w-full hover:bg-blue-800 hover:shadow-xl transition-all">Generate Proposal</button>
         </form>
